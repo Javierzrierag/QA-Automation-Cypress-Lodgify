@@ -1,20 +1,22 @@
 import { ElementsFromContact } from "../plugins/elements";
+import LoginPage from "../PageObject/LoginPage"
 
 describe('Lodgify Contact page', () => {
 
     var contact = "http://localhost:8080/contact.html";
 
-    context('Contact - Validate all fields in the  page ', () => {
+    context('Contact - Validate all fields in the page ', () => {
         it('Log into Contact page', () => {
-
+            const login = new LoginPage();
+            login.navigateContact();
             cy.visit(contact);
-            cy.wait(2000);
+           
         });
 
 
-        it('Verify the mandatory fileds ', () => {
+        it('Verify the mandatory fields ', () => {
             //Click on Name field
-            cy.get(':nth-child(1) > :nth-child(1) > .input > input').click();
+            cy.get(':nth-child(1) > :nth-child(1) > .input > input', { timeout: 8000 }).click();
             //Click on Phone field
             cy.get('.PhoneInput').click();
             // Click on Email field
@@ -48,28 +50,33 @@ describe('Lodgify Contact page', () => {
 
         });
 
-        it('Verify that (Arrival) is a Mandatory field', () => {
-            cy.get('.DateRangePickerInput > .ui').contains('Arrival is mandatory');
+        it('Verify that (Arrival) is working as expected', () => {
+            cy.get('.DateRangePickerInput_calendarIcon > .icon > svg').click();
+            cy.get('.DayPickerNavigation_rightButton__horizontalDefault > .DayPickerNavigation_svg__horizontal').click()
+            cy.get('[aria-label="Thursday, April 14, 2022"]').click();
+            cy.get('.DayPickerNavigation_rightButton__horizontalDefault > .DayPickerNavigation_svg__horizontal').click()
+            cy.get('[aria-label="Tuesday, June 14, 2022"]').click();
+            cy.get('.DateRangePickerInput_clearDates_svg').click();
 
         });
 
         it('Complete all the fields and try to send the message without selecting the arrival option ', () => {
-            //Click on Name field
+            //Complete Name field
             cy.get(':nth-child(1) > :nth-child(1) > .input > input').clear().type('Juan Gomez');
 
             //Select Argentina country
             cy.get('.PhoneInputCountrySelect').select(9);
 
-            //Click on Phone field
+            //Complete Phone field
             cy.get('.PhoneInput').clear().type('1158996545');
 
-            // Click on Email field
+            // Complete Email field
             cy.get('.eight > .input > input').clear().type('juangomez@gmail.com');
 
-            //Click Guest field
+            //Complete Guest field
             cy.get('.four > .ui > input').clear().type('2');
 
-            // Click on Comment field
+            // Complete Comment field
             ElementsFromContact.LoremIpsum();
 
         });
@@ -80,12 +87,13 @@ describe('Lodgify Contact page', () => {
 
             if (Visible) {
                 cy.get('[data-testid=form] > [data-testid=button]').should('not.be.visible');
-                cy.log('is work correctly');
+                cy.log('Send it not visible');
 
             } else {
                 cy.get('[data-testid=form] > [data-testid=button]').click();
+                //If this validation fails, its required to fail the whole scenario
                 cy.get('[data-testid=form] > [data-testid=button]').contains('Fail');
-                cy.log("Is not work property")
+                cy.log("Send is visible")
 
             }
         });
@@ -95,10 +103,11 @@ describe('Lodgify Contact page', () => {
             //Click Guest field
             cy.get('.four > .ui > input').clear().type('2');
 
-            //click on arrival and select round trip dates
+            //Click on arrival and select round trip dates
             cy.get('.DateRangePickerInput_calendarIcon > .icon > svg').click();
-            cy.get('[aria-label="Tuesday, March 15, 2022"]').click();
-            cy.get('[aria-label="Wednesday, April 13, 2022"]').click();
+            cy.get('.DayPickerNavigation_rightButton__horizontalDefault > .DayPickerNavigation_svg__horizontal').click()
+            cy.get('[aria-label="Wednesday, April 20, 2022"]').click();
+            cy.get('[aria-label="Wednesday, May 18, 2022"]').click();
 
             //Click on Send
             cy.get('[data-testid=form] > [data-testid=button]').click();
@@ -155,11 +164,11 @@ describe('Lodgify Contact page', () => {
             cy.get('.medium > :nth-child(2)').should('be.visible').contains('Phone: +34555278878278878');
         });
 
-        it('Verify if the Privacy policy and the Terms of Service is available', () => {
+        it('Verify if the Privacy policy and the Terms of Service are available', () => {
             // Check if is visible
             cy.get('.light').should('be.visible');
 
-            //Check if contain all text
+            //Check if the text is accurate
             cy.get('.light').contains('This site is protected by reCAPTCHA and the Google privacy policy and Terms of Service apply.');
 
             // Check if Privacy policy is a clickable element
