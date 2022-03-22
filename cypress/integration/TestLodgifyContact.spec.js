@@ -3,13 +3,10 @@ import LoginPage from "../PageObject/LoginPage"
 
 describe('Lodgify Contact page', () => {
 
-    var contact = "http://localhost:8080/contact.html";
-
     context('Contact - Validate all fields in the page ', () => {
         it('Log into Contact page', () => {
             const login = new LoginPage();
             login.navigateContact();
-            cy.visit(contact);
            
         });
 

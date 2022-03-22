@@ -3,8 +3,6 @@ import LoginPage from "../PageObject/LoginPage"
 
 describe('Lodgify Pricing page', () => {
 
-  var pricing = "http://localhost:8080/pricing.html";
-
   context('Pricing - Yearly plan - 50 rentals ', () => {
     it('Log into Pricing page', () => {
       const login = new LoginPage();
