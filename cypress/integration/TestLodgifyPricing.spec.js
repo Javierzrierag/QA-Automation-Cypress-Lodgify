@@ -30,17 +30,17 @@ describe('Lodgify Pricing page', () => {
 
 
     it('Verify that the yearly plan have the correct prices for the Starter Plan', () => {
-      cy.get(':nth-child(1) > .price-item > :nth-child(1) > .plan-price').should('have.text','$64');
+      cy.get(':nth-child(1) > .price-item > :nth-child(1) > .plan-price').should('have.text', '$64');
 
     });
 
     it('Verify that the yearly plan have the correct prices for the Professional Plan', () => {
-      cy.get(':nth-child(2) > .price-item > :nth-child(1) > .plan-price').should('have.text','$375');
+      cy.get(':nth-child(2) > .price-item > :nth-child(1) > .plan-price').should('have.text', '$375');
 
     });
 
     it('Verify that the yearly plan have the correct prices for the Ultimate Plan', () => {
-      cy.get(':nth-child(3) > .price-item > :nth-child(1) > .plan-price').should('have.text','$525');
+      cy.get(':nth-child(3) > .price-item > :nth-child(1) > .plan-price').should('have.text', '$525');
 
     });
 
@@ -166,16 +166,16 @@ describe('Lodgify Pricing page', () => {
       cy.get('.head-logo').should('be.visible');
 
       //Verify Features label
-      cy.get('#menu-item-15007 > .dropdown-toggle > .span-text').should('have.text','Features');
+      cy.get('#menu-item-15007 > .dropdown-toggle > .span-text').should('have.text', 'Features');
 
       //Verify Pricing label
-      cy.get('#menu-item-1057 > a > .span-text').should('have.text','Pricing');
+      cy.get('#menu-item-1057 > a > .span-text').should('have.text', 'Pricing');
 
       //Verify Resources label
-      cy.get('#menu-item-8806 > .dropdown-toggle > .span-text').should('have.text','Resources');
+      cy.get('#menu-item-8806 > .dropdown-toggle > .span-text').should('have.text', 'Resources');
 
       //Verify Login label
-      cy.get('#menu-item-31 > a > .span-text').should('have.text','Login');
+      cy.get('#menu-item-31 > a > .span-text').should('have.text', 'Login');
 
       //Verify Start Free Trial label
       cy.get('#menu-item-32 > a').contains('Start Free Trial');

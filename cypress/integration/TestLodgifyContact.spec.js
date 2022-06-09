@@ -7,7 +7,7 @@ describe('Lodgify Contact page', () => {
         it('Log into Contact page', () => {
             const login = new LoginPage();
             login.navigateContact();
-           
+
         });
 
 
